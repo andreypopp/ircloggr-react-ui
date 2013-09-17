@@ -1,5 +1,5 @@
 {
-  "name": "irc-channel-log",
+  "name": "irloggr-react-ui",
   "version": "0.0.0",
   "description": "IRC channel log visualizer",
   "main": "index.js",
