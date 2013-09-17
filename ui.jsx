@@ -23,7 +23,7 @@ var xhrGet = function(url, cb) {
 };
 
 var getMessages = function(before) {
-  var uri = URI(API_URI),
+  var uri = URI(API_URI).addSearch({num: 100}),
       promise = q.defer();
 
   if (before) {
@@ -41,9 +41,26 @@ var getMessages = function(before) {
   return promise;
 }
 
+var groupMessages = function(messages) {
+  var groups = [],
+      current = [];
+  messages.forEach(function(m) {
+    if (current.length > 0 && current[current.length - 1].who !== m.who) {
+      groups.push(current);
+      current = [];
+    }
+    current.push(m);
+  });
+  return groups;
+};
+
 var Timestamp = React.createClass({
   render: function() {
-    return <span>[{moment.unix(this.props.children).format("HH:mm")}]</span>;
+    return (
+      <span className="Timestamp">
+        {moment.unix(this.props.children).format("HH:mm")}
+      </span>
+    );
   }
 });
 
@@ -52,13 +69,15 @@ var Author = React.createClass({
     var name = this.props.children,
         h = parseInt(md5.digest_s(name).substr(2, 4), 16),
         color = 'hsl(' + h + ', 68%, 35%)';
-    return <span style={{color: color}}>{name}</span>;
+    return this.transferPropsTo(
+      <span className="Author" style={{color: color}}>{name}</span>
+    );
   }
 });
 
 var Content = React.createClass({
   render: function() {
-    return <span>{this.linkify(this.props.children)}</span>
+    return <span className="Content">{this.linkify(this.props.children)}</span>;
   },
 
   linkify: function(text) {
@@ -84,10 +103,23 @@ var Message = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <Timestamp>{this.props.message.ts}</Timestamp>{' '}
-        <Author>{this.props.message.who}</Author>{': '}
+      <div class="Message">
         <Content>{this.props.message.msg}</Content>
+      </div>
+    );
+  }
+});
+
+var MessageGroup = React.createClass({
+  shouldComponentUpdate: function() {
+    return false;
+  },
+
+  render: function() {
+    return (
+      <div class="MessageGroup">
+        <Author className="metadata">{this.props.who}</Author>
+        {this.props.messages.map(function(m) { return Message({message: m}) })}
       </div>
     );
   }
@@ -99,7 +131,7 @@ var MessageList = React.createClass({
   },
 
   needLoadMore: function() {
-    return window.scrollY < 50;
+    return window.scrollY < 300;
   },
 
   componentDidMount: function(elem) {
@@ -160,11 +192,12 @@ var MessageList = React.createClass({
       return a.id - b.id;
     });
 
-    var messages = this.state.messages.map(function(message) {
-      return Message({message: message, key: message.id, ref: message.id})
-    });
+    var messages = groupMessages(this.state.messages)
+      .map(function(g) {
+        return MessageGroup({messages: g, who: g[0].who, key: g[0].id});
+      });
 
-    return <div>{messages}</div>;
+    return <div className="MessageList">{messages}</div>;
   }
 });
 
@@ -175,6 +208,7 @@ var LogViewer = React.createClass({
       <Page>
         <head>
           <title>#reactjs on IRC Freenode</title>
+          <link rel="stylesheet" href="/public/style.css" />
         </head>
         <body>
           <MessageList

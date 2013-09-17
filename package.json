@@ -4,6 +4,7 @@
   "description": "IRC channel log visualizer",
   "main": "index.js",
   "dependencies": {
+    "express": "*",
     "xhr": "*",
     "moment": "*",
     "md5": "*",

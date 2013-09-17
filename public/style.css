@@ -1,0 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+
+body {
+  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #444;
+  background: #fafafa;
+}
+
+.MessageList {
+  width: 600px;
+  margin: 0 auto;
+  margin-bottom: 3em;
+}
+
+.Content {
+  line-height: 1.25em;
+}
+
+.Message {
+  margin-bottom: 0.2em;
+}
+
+.MessageGroup {
+  position: relative;
+  margin-bottom: 0.7em;
+}
+
+.Author {
+  font-size: 12px;
+}
+
+.metadata {
+  position: absolute;
+  width: 150px;
+  left: -155px;
+  text-align: right;
+  opacity: 0.8;
+}
