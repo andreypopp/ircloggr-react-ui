@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "express": "*",
-    "xhr": "*",
     "moment": "*",
     "md5": "*",
     "URIjs": "*",
