@@ -135,6 +135,8 @@ var MessageList = React.createClass({
   },
 
   componentDidMount: function(elem) {
+    this.lastCount = elem.children.length;
+
     if (this.needLoadMore()) {
       this.loadMore();
     }
@@ -143,6 +145,7 @@ var MessageList = React.createClass({
         this.loadMore();
       }
     }.bind(this));
+
   },
 
   loadMore: function() {
