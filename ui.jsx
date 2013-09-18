@@ -135,23 +135,24 @@ var MessageList = React.createClass({
   },
 
   componentDidMount: function(elem) {
-    this.lastCount = elem.children.length;
+    this.updateScrollPosition();
 
     if (this.needLoadMore()) {
       this.loadMore();
     }
+
     window.addEventListener('scroll', function() {
       if (this.needLoadMore()) {
         this.loadMore();
       }
     }.bind(this));
-
   },
 
   loadMore: function() {
     var firstID = this.state.messages.length > 0 ?
-        this.state.messages[0].id :
-        undefined;
+          this.state.messages[0].id :
+          undefined;
+
     if (this.state.isLoading) {
       return;
     }
@@ -167,8 +168,13 @@ var MessageList = React.createClass({
     this.setState({isLoading: true});
   },
 
-  componentDidUpdate: function(props, state, elem) {
-    var count = elem.children.length;
+  componentDidUpdate: function() {
+    this.updateScrollPosition();
+  },
+
+  updateScrollPosition: function() {
+    var elem = this.getDOMNode(),
+        count = elem.children.length;
 
     if (count !== this.lastCount) {
       if (elem.offsetHeight < window.innerHeight) {
