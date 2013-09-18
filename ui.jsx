@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+require('./style.css');
+
 var React = require('react-tools/build/modules/React'),
     Page = require('react-app/page'),
     moment = require('moment'),
@@ -217,7 +219,6 @@ var LogViewer = React.createClass({
       <Page>
         <head>
           <title>#reactjs on IRC Freenode</title>
-          <link rel="stylesheet" href="/public/style.css" />
         </head>
         <body>
           <MessageList
