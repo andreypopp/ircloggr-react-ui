@@ -25,6 +25,7 @@ body {
 .MessageGroup {
   position: relative;
   margin-bottom: 0.7em;
+  padding: 0.1em;
 }
 
 .Author {
