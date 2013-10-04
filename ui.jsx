@@ -3,7 +3,7 @@
 require('./style.css');
 
 var React = require('react-tools/build/modules/React'),
-    Page = require('react-app/page'),
+    createPage = require('react-app/page'),
     moment = require('moment'),
     md5 = require('md5'),
     URI = require('URIjs'),
@@ -212,11 +212,11 @@ var MessageList = React.createClass({
   }
 });
 
-var LogViewer = React.createClass({
+var LogViewer = createPage({
 
   render: function() {
     return this.transferPropsTo(
-      <Page>
+      <html>
         <head>
           <title>#reactjs on IRC Freenode</title>
         </head>
@@ -225,16 +225,13 @@ var LogViewer = React.createClass({
             messages={this.props.messages}
             getMessages={getMessages} />
         </body>
-      </Page>
+      </html>
     );
-  }
+  },
+
+  getData: function(props) {
+    return getMessages().then(function(messages) {return {messages: messages}});
+  },
 });
 
-module.exports = {
-  getData: function(props) {
-    return getMessages().then(function(messages) {
-      return {messages: messages}
-    });
-  },
-  Component: LogViewer,
-};
+module.exports = LogViewer;
