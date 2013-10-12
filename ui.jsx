@@ -12,7 +12,7 @@ var React = require('react-tools/build/modules/React'),
 var API_URI = "http://vjeux.com:8001/api/utterances/irc.freenode.net/reactjs";
 
 var xhrGet = function(url, cb) {
-    var xhr = new global.XMLHttpRequest(), twoHundred = /^20\d$/;
+    var xhr = new XMLHttpRequest(), twoHundred = /^20\d$/;
     xhr.onreadystatechange = function() {
       if (4 == xhr.readyState && 0 !== xhr.status) {
         if (twoHundred.test(xhr.status)) cb(null, xhr);
@@ -229,7 +229,7 @@ var LogViewer = createPage({
     );
   },
 
-  getData: function(props) {
+  getData: function() {
     return getMessages().then(function(messages) {return {messages: messages}});
   },
 });
