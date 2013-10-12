@@ -215,14 +215,14 @@ var MessageList = React.createClass({
 var LogViewer = createPage({
 
   render: function() {
-    return this.transferPropsTo(
+    return (
       <html>
         <head>
           <title>#reactjs on IRC Freenode</title>
         </head>
         <body>
           <MessageList
-            messages={this.props.messages}
+            messages={this.props.data.messages}
             getMessages={getMessages} />
         </body>
       </html>
@@ -230,7 +230,9 @@ var LogViewer = createPage({
   },
 
   getData: function() {
-    return getMessages().then(function(messages) {return {messages: messages}});
+    return getMessages().then(function(messages) {
+      return {messages: messages}
+    });
   },
 });
 
