@@ -3,7 +3,7 @@
 require('./style.css');
 
 var React = require('react-tools/build/modules/React'),
-    createPage = require('react-app/page'),
+    ReactApp = require('react-app'),
     moment = require('moment'),
     md5 = require('md5'),
     URI = require('URIjs'),
@@ -212,7 +212,7 @@ var MessageList = React.createClass({
   }
 });
 
-var LogViewer = createPage({
+var LogViewer = ReactApp.createPage({
 
   render: function() {
     return (
@@ -236,4 +236,8 @@ var LogViewer = createPage({
   },
 });
 
-module.exports = LogViewer;
+module.exports = ReactApp.createApp({
+  routes: {
+    '/': LogViewer
+  }
+});

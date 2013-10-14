@@ -1,3 +1,3 @@
-var makeApp = require('react-app');
+var ReactApp = require('react-app');
 
-makeApp({'/': './ui.jsx'}, {debug: true}).listen(3000);
+ReactApp('./ui.jsx', {debug: true}).listen(3000);
