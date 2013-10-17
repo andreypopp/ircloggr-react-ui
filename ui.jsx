@@ -105,7 +105,7 @@ var Message = React.createClass({
 
   render: function() {
     return (
-      <div class="Message">
+      <div className="Message">
         <Content>{this.props.message.msg}</Content>
       </div>
     );
@@ -119,7 +119,7 @@ var MessageGroup = React.createClass({
 
   render: function() {
     return (
-      <div class="MessageGroup">
+      <div className="MessageGroup">
         <Author className="metadata">{this.props.who}</Author>
         {this.props.messages.map(function(m) { return Message({message: m}) })}
       </div>
