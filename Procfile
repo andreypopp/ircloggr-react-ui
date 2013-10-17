@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/react-app --port $PORT ./ui.jsx
+web: ./node_modules/.bin/react-app serve --port $PORT ./ui.jsx
